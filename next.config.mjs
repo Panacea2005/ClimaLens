@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    optimizePackageImports: ["@radix-ui/react-icons"],
+    optimizePackageImports: ["@radix-ui/react-icons", "lucide-react"],
   },
   eslint: {
     ignoreDuringBuilds: true,

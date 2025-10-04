@@ -1,78 +1,101 @@
 "use client"
 
-import { Cloud, Leaf, Globe } from "lucide-react"
-import { useEffect, useRef } from "react"
-
 export default function SocialProofSection() {
-  const sectionRef = useRef<HTMLElement>(null)
+  // Properly structured dot number display for each digit
+  const renderDigit = (digit: string, digitIndex: number) => {
+    // Patterns for 0-9 in 3x4 dot grid (based on PlayerZero pattern)
+    const patterns: Record<string, boolean[]> = {
+      "0": [true, true, true, true, false, true, true, false, true, true, true, true],
+      "1": [false, true, false, false, true, false, false, true, false, false, true, false],
+      "2": [true, true, true, false, false, true, true, true, false, true, false, false],
+      "3": [true, true, true, false, false, true, false, true, true, true, true, true],
+      "4": [true, false, true, true, false, true, true, true, true, false, false, true],
+      "5": [true, true, true, true, false, false, true, true, true, false, false, true],
+      "6": [true, true, true, true, false, false, true, true, true, true, true, true],
+      "7": [true, true, true, false, false, true, false, false, true, false, false, true],
+      "8": [true, true, true, true, false, true, true, true, true, true, true, true],
+      "9": [true, true, true, true, false, true, true, true, true, false, false, true],
+    };
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible")
-          }
-        })
-      },
-      { threshold: 0.1 },
-    )
+    const pattern = patterns[digit] || [];
+    const rows = [
+      pattern.slice(0, 3),
+      pattern.slice(3, 6),
+      pattern.slice(6, 9),
+      pattern.slice(9, 12),
+    ];
 
-    const elements = sectionRef.current?.querySelectorAll(".scroll-animate")
-    elements?.forEach((el) => observer.observe(el))
+    return (
+      <div key={`digit-${digitIndex}`} className="inline-block mx-[2px]">
+        {rows.map((row, rowIndex) => (
+          <div key={`row-${digitIndex}-${rowIndex}`} className="flex gap-[2px]">
+            {row.map((isVisible, colIndex) => (
+              <div
+                key={`dot-${digitIndex}-${rowIndex}-${colIndex}`}
+                className={`w-[5px] h-[5px] rounded-full ${isVisible ? 'bg-black' : 'bg-transparent'}`}
+              />
+            ))}
+          </div>
+        ))}
+      </div>
+    );
+  };
 
-    return () => observer.disconnect()
-  }, [])
+  // Render full stat value including symbols
+  const renderStatValue = (value: string) => {
+    const elements = [];
+
+    for (let i = 0; i < value.length; i++) {
+      const char = value[i];
+      if (char === "+" || char === "%") {
+        elements.push(
+          <span key={`symbol-${i}`} className="ml-1 text-black">
+            {char}
+          </span>
+        );
+      } else {
+        elements.push(renderDigit(char, i));
+      }
+    }
+
+    return <div className="flex justify-center items-center mb-1">{elements}</div>;
+  };
 
   return (
-    <section ref={sectionRef} className="py-20 bg-muted/30 relative overflow-hidden">
-      <div className="absolute right-20 top-10 text-muted-foreground/10 text-xs leading-tight pointer-events-none hidden xl:block">
-        <pre className="font-mono">
-          {`    ┌─────────────┐
-    │   ▄▄▄▄▄▄▄   │
-    │  ▄▀      ▀▄ │
-    │ ▀         ▀ │
-    │             │
-    └─────────────┘`}
-        </pre>
-      </div>
-
-      <div className="container mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+    <section className="py-20 bg-background">
+      <div className="container mx-auto px-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-16 max-w-5xl mx-auto">
           {/* Stat 1 */}
-          <div className="text-center space-y-4 scroll-animate" style={{ transitionDelay: "0ms" }}>
-            <div className="flex justify-center">
-              <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center">
-                <Cloud className="w-8 h-8" />
-              </div>
+          <div className="flex flex-col items-center">
+            <div className="mb-3">
+              {renderStatValue("10M+")}
             </div>
-            <div className="text-5xl font-bold">10M+</div>
-            <div className="text-muted-foreground">Data points analyzed daily</div>
+            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
+              Data points analyzed daily
+            </div>
           </div>
 
           {/* Stat 2 */}
-          <div className="text-center space-y-4 scroll-animate" style={{ transitionDelay: "100ms" }}>
-            <div className="flex justify-center">
-              <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center">
-                <Leaf className="w-8 h-8" />
-              </div>
+          <div className="flex flex-col items-center">
+            <div className="mb-3">
+              {renderStatValue("95%")}
             </div>
-            <div className="text-5xl font-bold">95%</div>
-            <div className="text-muted-foreground">Prediction accuracy achieved</div>
+            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
+              Prediction accuracy achieved
+            </div>
           </div>
 
           {/* Stat 3 */}
-          <div className="text-center space-y-4 scroll-animate" style={{ transitionDelay: "200ms" }}>
-            <div className="flex justify-center">
-              <div className="w-16 h-16 rounded-2xl bg-background border border-border flex items-center justify-center">
-                <Globe className="w-8 h-8" />
-              </div>
+          <div className="flex flex-col items-center">
+            <div className="mb-3">
+              {renderStatValue("150+")}
             </div>
-            <div className="text-5xl font-bold">150+</div>
-            <div className="text-muted-foreground">Countries monitored globally</div>
+            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
+              Countries monitored globally
+            </div>
           </div>
         </div>
       </div>
     </section>
-  )
+  );
 }
