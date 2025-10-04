@@ -2,6 +2,7 @@
 
 import { Home, BarChart3, Globe, TrendingUp, Settings, FileText, Cloud } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 
@@ -20,10 +21,16 @@ export default function DashboardSidebar() {
 
   return (
     <aside className="w-64 border-r border-border bg-card p-6 hidden md:block">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-foreground">ClimaLens</h1>
-        <p className="text-sm text-muted-foreground mt-1">Climate Intelligence</p>
-      </div>
+      <Link href="/" className="block mb-8">
+        <Image
+          src="/ClimaLens.png"
+          alt="ClimaLens"
+          width={180}
+          height={48}
+          className="h-10 w-auto"
+          priority
+        />
+      </Link>
 
       <nav className="space-y-2">
         {navItems.map((item) => {
