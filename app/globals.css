@@ -92,10 +92,6 @@
   .hide-scrollbar::-webkit-scrollbar {
     display: none;
   }
-  100% {
-    transform: translateX(400%);
-  }
-}
 
 @keyframes bounce-dot {
   0%, 80%, 100% {

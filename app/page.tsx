@@ -3,7 +3,6 @@ import SocialProofSection from "@/components/social-proof-section"
 import FeaturesGridSection from "@/components/features-grid-section"
 import IntegrationsSection from "@/components/integrations-section"
 import LargeCardsSection from "@/components/large-cards-section"
-import AwarenessSection from "@/components/awareness-section"
 
 export default function Home() {
   // Climate-related images
@@ -39,7 +38,6 @@ export default function Home() {
       <FeaturesGridSection />
       <IntegrationsSection />
       <LargeCardsSection />
-      <AwarenessSection />
     </main>
   )
 }
