@@ -6,7 +6,6 @@ import IntegrationsSection from "@/components/integrations-section"
 import TwoColumnSection from "@/components/two-column-section"
 import LargeCardsSection from "@/components/large-cards-section"
 import AwarenessSection from "@/components/awareness-section"
-import DebugSection from "@/components/debug-section"
 
 export default function Home() {
   // Climate-related images
@@ -45,7 +44,6 @@ export default function Home() {
       <TwoColumnSection />
       <LargeCardsSection />
       <AwarenessSection />
-      <DebugSection />
     </main>
   )
 }

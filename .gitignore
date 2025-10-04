@@ -32,6 +32,14 @@ yarn-error.log*
 .DS_Store
 *.pem
 
+# Secrets and API Keys
+.secrets/
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!components.json
+
 # Local env files
 .env*.local
 

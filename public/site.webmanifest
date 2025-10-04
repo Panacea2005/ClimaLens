@@ -1,0 +1,26 @@
+{
+  "name": "ClimaLens - Climate Intelligence Platform",
+  "short_name": "ClimaLens",
+  "description": "Advanced climate analysis platform powered by NASA MERRA-2 satellite data",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/ClimaLens.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "education",
+    "weather",
+    "science",
+    "utilities"
+  ],
+  "screenshots": []
+}
+

@@ -1,0 +1,45 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "ClimaLens - Climate Intelligence Platform"
+version: 1.0.0
+date-released: 2025-10-04
+url: "https://github.com/climalens/climalens"
+repository-code: "https://github.com/climalens/climalens"
+abstract: "Advanced climate analysis platform leveraging NASA MERRA-2 satellite data to provide probabilistic weather insights based on 45 years of historical climate patterns"
+keywords:
+  - climate analysis
+  - weather probability
+  - NASA MERRA-2
+  - satellite data
+  - climate intelligence
+  - Google Earth Engine
+license: MIT
+authors:
+  - family-names: "ClimaLens"
+    given-names: "Team"
+    email: contact@climalens.dev
+preferred-citation:
+  type: software
+  title: "ClimaLens: Probabilistic Climate Analysis Platform"
+  authors:
+    - family-names: "ClimaLens"
+      given-names: "Team"
+  year: 2025
+  url: "https://climalens.vercel.app"
+references:
+  - type: data
+    title: "MERRA-2 M2T1NXSLV: Single-Level Diagnostics V5.12.4"
+    authors:
+      - name: "Global Modeling and Assimilation Office (GMAO)"
+    year: 2015
+    database: "Goddard Earth Sciences Data and Information Services Center (GES DISC)"
+    doi: "10.5067/VJAFPLI1CSIV"
+  - type: data
+    title: "MERRA-2 M2T1NXFLX: Surface Flux Diagnostics V5.12.4"
+    authors:
+      - name: "Global Modeling and Assimilation Office (GMAO)"
+    year: 2015
+    database: "Goddard Earth Sciences Data and Information Services Center (GES DISC)"
+    doi: "10.5067/7MCPBJ41Y0K6"
+
