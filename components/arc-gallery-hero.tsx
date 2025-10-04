@@ -130,9 +130,6 @@ const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
             >
               Access Dashboard
             </a>
-            <button className="w-full sm:w-auto px-8 py-4 rounded-full border-2 border-border hover:bg-accent hover:text-accent-foreground transition-all duration-200 font-medium text-lg">
-              Explore Features
-            </button>
           </div>
         </div>
       </div>

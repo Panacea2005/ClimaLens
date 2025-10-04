@@ -28,7 +28,7 @@ export default function Navbar() {
             priority
           />
         </Link>
-        
+
         <div className="flex items-center gap-4">
           {mounted && (
             <Button
