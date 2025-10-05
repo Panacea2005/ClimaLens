@@ -3,6 +3,7 @@ import SocialProofSection from "@/components/social-proof-section"
 import FeaturesGridSection from "@/components/features-grid-section"
 import IntegrationsSection from "@/components/integrations-section"
 import LargeCardsSection from "@/components/large-cards-section"
+import SplashScreen from "@/components/splash-screen"
 
 export default function Home() {
   // Climate-related images
@@ -21,8 +22,10 @@ export default function Home() {
   ]
 
   return (
-    <main className="relative min-h-screen bg-background">
-      <ArcGalleryHero
+    <>
+      <SplashScreen />
+      <main className="relative min-h-screen bg-background">
+        <ArcGalleryHero
         images={images}
         startAngle={20}
         endAngle={160}
@@ -38,6 +41,7 @@ export default function Home() {
       <FeaturesGridSection />
       <IntegrationsSection />
       <LargeCardsSection />
-    </main>
+      </main>
+    </>
   )
 }

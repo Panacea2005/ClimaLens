@@ -197,6 +197,28 @@
     opacity: 1;
     transform: translateY(0);
   }
+
+  @keyframes splash-fade-in {
+    0% {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes splash-fade-out {
+    0% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+  }
 }
 
 /* Leaflet map location highlight */

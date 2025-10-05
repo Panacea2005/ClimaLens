@@ -117,11 +117,10 @@ const ArcGalleryHero: React.FC<ArcGalleryHeroProps> = ({
           style={{ animationDelay: "800ms", animationFillMode: "forwards" }}
         >
           <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-foreground text-balance">
-            Climate Intelligence at Your Fingertips
+            Know what's coming.
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto text-pretty">
-            Transform complex climate data into actionable insights. Monitor trends, analyze patterns, and make informed
-            decisions with ClimaLens.
+            45 years of weather history. Any location. Any date. Understand climate patterns with NASA-grade data and ocean intelligence.
           </p>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a

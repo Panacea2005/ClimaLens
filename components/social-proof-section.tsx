@@ -32,7 +32,7 @@ export default function SocialProofSection() {
             {row.map((isVisible, colIndex) => (
               <div
                 key={`dot-${digitIndex}-${rowIndex}-${colIndex}`}
-                className={`w-[5px] h-[5px] rounded-full ${isVisible ? 'bg-black' : 'bg-transparent'}`}
+                className={`w-[5px] h-[5px] rounded-full ${isVisible ? 'bg-foreground' : 'bg-transparent'}`}
               />
             ))}
           </div>
@@ -49,7 +49,7 @@ export default function SocialProofSection() {
       const char = value[i];
       if (char === "+" || char === "%") {
         elements.push(
-          <span key={`symbol-${i}`} className="ml-1 text-black">
+          <span key={`symbol-${i}`} className="ml-1 text-foreground">
             {char}
           </span>
         );
@@ -70,8 +70,8 @@ export default function SocialProofSection() {
             <div className="mb-3">
               {renderStatValue("10M+")}
             </div>
-            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
-              Data points analyzed daily
+            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+              historical data points
             </div>
           </div>
 
@@ -80,8 +80,8 @@ export default function SocialProofSection() {
             <div className="mb-3">
               {renderStatValue("95%")}
             </div>
-            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
-              Prediction accuracy achieved
+            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+              percentile-based analysis
             </div>
           </div>
 
@@ -90,8 +90,8 @@ export default function SocialProofSection() {
             <div className="mb-3">
               {renderStatValue("150+")}
             </div>
-            <div className="text-gray-500 text-sm uppercase tracking-wide text-center">
-              Countries monitored globally
+            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+              years of weather + ocean
             </div>
           </div>
         </div>
