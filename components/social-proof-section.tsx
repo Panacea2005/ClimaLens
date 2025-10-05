@@ -62,35 +62,35 @@ export default function SocialProofSection() {
   };
 
   return (
-    <section className="py-20 bg-background">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-10 gap-y-16 max-w-5xl mx-auto">
+    <section className="py-12 sm:py-16 md:py-20 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-x-6 sm:gap-x-10 gap-y-10 sm:gap-y-16 max-w-5xl mx-auto">
           {/* Stat 1 */}
           <div className="flex flex-col items-center">
-            <div className="mb-3">
+            <div className="mb-2 sm:mb-3 scale-75 sm:scale-90 md:scale-100">
               {renderStatValue("10M+")}
             </div>
-            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+            <div className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wide text-center px-2">
               historical data points
             </div>
           </div>
 
           {/* Stat 2 */}
           <div className="flex flex-col items-center">
-            <div className="mb-3">
+            <div className="mb-2 sm:mb-3 scale-75 sm:scale-90 md:scale-100">
               {renderStatValue("95%")}
             </div>
-            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+            <div className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wide text-center px-2">
               percentile-based analysis
             </div>
           </div>
 
           {/* Stat 3 */}
           <div className="flex flex-col items-center">
-            <div className="mb-3">
+            <div className="mb-2 sm:mb-3 scale-75 sm:scale-90 md:scale-100">
               {renderStatValue("150+")}
             </div>
-            <div className="text-muted-foreground text-sm uppercase tracking-wide text-center">
+            <div className="text-muted-foreground text-xs sm:text-sm uppercase tracking-wide text-center px-2">
               years of weather + ocean
             </div>
           </div>

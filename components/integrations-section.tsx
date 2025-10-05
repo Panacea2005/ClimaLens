@@ -102,30 +102,30 @@ export default function IntegrationsSection() {
   };
 
   return (
-    <section className="py-24 bg-background border-t border-border relative overflow-hidden">
+    <section className="py-12 sm:py-16 md:py-24 bg-background border-t border-border relative overflow-hidden">
       {/* Background subtle pattern */}
       <div className="absolute inset-0 opacity-[0.015] pointer-events-none">
         <div className="fixed-pattern-bg" />
       </div>
 
-      <div className="container mx-auto px-6">
-        <div className="mb-20">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="mb-12 sm:mb-16 md:mb-20">
           {/* Two dots header pattern */}
-          <div className="flex gap-1 mb-4">
+          <div className="flex gap-1 mb-3 sm:mb-4">
             <div className="w-[3px] h-[3px] rounded-full bg-foreground"></div>
             <div className="w-[3px] h-[3px] rounded-full bg-foreground"></div>
           </div>
-          <h2 className="text-3xl font-bold mb-2 text-foreground">Powered by the best</h2>
-          <p className="text-muted-foreground">NASA and NOAA datasets</p>
+          <h2 className="text-2xl sm:text-3xl font-bold mb-2 text-foreground">Powered by the best</h2>
+          <p className="text-sm sm:text-base text-muted-foreground">NASA and NOAA datasets</p>
         </div>
 
         {/* Data Sources */}
-        <div className="mb-24">
-          <div className="mb-8 flex items-start">
-            <h3 className="text-lg font-medium text-foreground">Data Sources</h3>
+        <div className="mb-16 sm:mb-20 md:mb-24">
+          <div className="mb-6 sm:mb-8 flex items-start">
+            <h3 className="text-base sm:text-lg font-medium text-foreground">Data Sources</h3>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
             {dataSources.map((source, i) => (
               <ItemCard key={i} item={source} index={i} type="source" />
             ))}
@@ -134,11 +134,11 @@ export default function IntegrationsSection() {
 
         {/* Analysis Tools */}
         <div className="mb-4">
-          <div className="mb-8 flex items-start">
-            <h3 className="text-lg font-medium text-foreground">Analysis Tools</h3>
+          <div className="mb-6 sm:mb-8 flex items-start">
+            <h3 className="text-base sm:text-lg font-medium text-foreground">Analysis Tools</h3>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-16">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 lg:gap-16">
             {analysisTools.map((tool, i) => (
               <ItemCard key={i} item={tool} index={i} type="tool" />
             ))}

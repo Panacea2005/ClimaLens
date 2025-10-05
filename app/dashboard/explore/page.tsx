@@ -266,33 +266,33 @@ export default function ExplorePage() {
   }, [toast])
 
   return (
-    <div className="h-full p-4 bg-background overflow-y-auto">
+    <div className="h-full p-3 sm:p-4 md:p-6 bg-background overflow-y-auto">
       <div className="max-w-[1800px] mx-auto">
         {/* Page Header */}
-        <div className="mb-6">
+        <div className="mb-4 sm:mb-6">
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="secondary" className="uppercase tracking-wide">Explore</Badge>
-            <Badge variant="outline" className="hidden sm:inline-flex">Interactive</Badge>
+            <Badge variant="secondary" className="uppercase tracking-wide text-xs">Explore</Badge>
+            <Badge variant="outline" className="hidden sm:inline-flex text-xs">Interactive</Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight">Climate Explorer</h1>
-          <p className="text-muted-foreground mt-1">Select any location and date to analyze historical climate patterns</p>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">Climate Explorer</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mt-1">Select any location and date to analyze historical climate patterns</p>
         </div>
 
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-12 gap-4 pb-4">
+        {/* Bento Grid Layout - Responsive */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-4 pb-4">
           {/* Preset Location Banner */}
           {activePreset && (
-            <Alert className="col-span-12 bg-primary/5 border-primary/20">
+            <Alert className="lg:col-span-12 bg-primary/5 border-primary/20">
               <Sparkles className="h-4 w-4 text-primary" />
-              <AlertDescription className="flex items-center justify-between">
-                <span>
+              <AlertDescription className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                <span className="text-sm">
                   Showing sample data for <strong>{activePreset.name}, {activePreset.country}</strong> · {activePreset.description}
                 </span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setActivePreset(null)}
-                  className="h-6 px-2"
+                  className="h-6 px-2 shrink-0"
                 >
                   Clear
                 </Button>
@@ -301,16 +301,18 @@ export default function ExplorePage() {
           )}
 
           {/* Search Bar with Actions */}
-          <Card className="col-span-12 relative">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-3 w-full">
-                {/* Preset Locations Dropdown */}
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button variant="outline" size="icon" className="shrink-0" title="Try example locations">
-                      <MapPinned className="h-4 w-4" />
-                    </Button>
-                  </DropdownMenuTrigger>
+          <Card className="lg:col-span-12 relative">
+            <CardContent className="p-3 sm:p-4">
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3 w-full">
+                {/* Action Buttons Row */}
+                <div className="flex items-center gap-2 sm:gap-3">
+                  {/* Preset Locations Dropdown */}
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="icon" className="shrink-0 h-9 w-9 sm:h-10 sm:w-10" title="Try example locations">
+                        <MapPinned className="h-4 w-4" />
+                      </Button>
+                    </DropdownMenuTrigger>
                   <DropdownMenuContent align="start" className="w-64">
                     <DropdownMenuLabel>Try Example Locations</DropdownMenuLabel>
                     <DropdownMenuSeparator />
@@ -331,49 +333,49 @@ export default function ExplorePage() {
                       </DropdownMenuItem>
                     ))}
                   </DropdownMenuContent>
-                </DropdownMenu>
+                  </DropdownMenu>
 
-                {/* Use My Location Button */}
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleUseMyLocation}
-                  disabled={geolocation.loading}
-                  className="shrink-0"
-                  title="Use my location"
-                >
-                  {geolocation.loading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                  ) : (
-                    <LocateFixed className="h-4 w-4" />
-                  )}
-                </Button>
+                  {/* Use My Location Button */}
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={handleUseMyLocation}
+                    disabled={geolocation.loading}
+                    className="shrink-0 h-9 w-9 sm:h-10 sm:w-10"
+                    title="Use my location"
+                  >
+                    {geolocation.loading ? (
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                    ) : (
+                      <LocateFixed className="h-4 w-4" />
+                    )}
+                  </Button>
 
-                <div className="flex-1 flex gap-2 relative">
+                  <div className="flex-1 flex gap-2 relative">
                   {/* Input + Suggestions via Popover (portaled above map) */}
-                  <Popover open={openSuggestions} onOpenChange={setOpenSuggestions} modal={false}>
-                    <PopoverTrigger asChild>
-                      <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
-                        <Input
-                          placeholder="Search for any location: Paris, New York, Tokyo..."
-                          value={searchQuery}
-                          onChange={(e) => onSearchInput(e.target.value)}
-                          onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                          onFocus={() => searchSuggestions.length > 0 && setOpenSuggestions(true)}
-                          disabled={searching}
-                          className="pl-10"
-                          aria-expanded={openSuggestions}
-                          aria-controls="search-suggestions"
-                        />
-                      </div>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      align="start"
-                      sideOffset={8}
-                      className="p-0 w-[min(720px,90vw)] shadow-xl border-2"
-                      collisionPadding={16}
-                    >
+                    <Popover open={openSuggestions} onOpenChange={setOpenSuggestions} modal={false}>
+                      <PopoverTrigger asChild>
+                        <div className="relative flex-1">
+                          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                          <Input
+                            placeholder="Search location..."
+                            value={searchQuery}
+                            onChange={(e) => onSearchInput(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                            onFocus={() => searchSuggestions.length > 0 && setOpenSuggestions(true)}
+                            disabled={searching}
+                            className="pl-10 h-9 sm:h-10 text-sm sm:text-base"
+                            aria-expanded={openSuggestions}
+                            aria-controls="search-suggestions"
+                          />
+                        </div>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        align="start"
+                        sideOffset={8}
+                        className="p-0 w-[calc(100vw-2rem)] sm:w-[min(720px,90vw)] shadow-xl border-2"
+                        collisionPadding={16}
+                      >
                       <Command shouldFilter={false} aria-label="Location suggestions" className="rounded-lg">
                         <CommandList id="search-suggestions" className="max-h-[320px]">
                           <CommandEmpty className="py-8 text-center text-sm text-muted-foreground">
@@ -401,44 +403,44 @@ export default function ExplorePage() {
                           </CommandGroup>
                         </CommandList>
                       </Command>
-                    </PopoverContent>
-                  </Popover>
+                      </PopoverContent>
+                    </Popover>
 
-                  <Button onClick={handleSearch} disabled={searching || !searchQuery.trim()}>
-                    {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : "Search"}
-                  </Button>
+                    <Button onClick={handleSearch} disabled={searching || !searchQuery.trim()} className="h-9 sm:h-10 px-3 sm:px-4 text-sm sm:text-base">
+                      {searching ? <Loader2 className="h-4 w-4 animate-spin" /> : <span className="hidden sm:inline">Search</span>}
+                      {searching ? null : <Search className="h-4 w-4 sm:hidden" />}
+                    </Button>
+                  </div>
                 </div>
 
+                {/* Location Display - Full Width on Mobile */}
                 {locationName && (
-                  <>
-                    <Separator orientation="vertical" className="h-8" />
-                    <div className="flex items-center gap-2 px-3">
-                      <MapPin className="h-4 w-4 text-primary" />
-                      <div className="text-sm">
-                        <span className="font-medium">{locationName.split(",")[0]}</span>
-                        <span className="text-muted-foreground ml-2 text-xs">{lat.toFixed(2)}°, {lon.toFixed(2)}°</span>
-                      </div>
+                  <div className="flex items-center gap-2 px-3 py-2 sm:py-0 bg-muted/30 sm:bg-transparent rounded-md sm:rounded-none border sm:border-0 border-border">
+                    <MapPin className="h-4 w-4 text-primary shrink-0" />
+                    <div className="text-sm min-w-0 flex-1">
+                      <span className="font-medium truncate block sm:inline">{locationName.split(",")[0]}</span>
+                      <span className="text-muted-foreground ml-0 sm:ml-2 text-xs block sm:inline">{lat.toFixed(2)}°, {lon.toFixed(2)}°</span>
                     </div>
-                  </>
+                  </div>
                 )}
               </div>
             </CardContent>
           </Card>
 
           {/* Map - Large Center Section (ensure it never overlays search popover) */}
-          <Card className="col-span-8 row-span-11 overflow-hidden relative">
+          <Card className="lg:col-span-8 lg:row-span-11 overflow-hidden relative h-[400px] lg:h-auto">
             <div className="absolute inset-0 z-0">
               <MapSelector lat={lat} lon={lon} onLocationSelect={handleMapClick} />
             </div>
           </Card>
 
           {/* Date Picker - Right Top */}
-          <Card className="col-span-4 row-span-5">
-            <CardHeader className="pb-4">
-              <div className="flex items-center justify-between">
+          <Card className="lg:col-span-4 lg:row-span-5">
+            <CardHeader className="pb-3 sm:pb-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <CardTitle>Select Date</CardTitle>
+                    <CardTitle className="text-lg sm:text-xl">Select Date</CardTitle>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -452,7 +454,7 @@ export default function ExplorePage() {
                       </Tooltip>
                     </TooltipProvider>
                   </div>
-                  <CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">
                     Choose any date (1980-2100) for historical climate analysis
                     {isLeapDay(date) && (
                       <TooltipProvider>
@@ -470,14 +472,14 @@ export default function ExplorePage() {
                     )}
                   </CardDescription>
                 </div>
-                <Badge variant="secondary" className="hidden md:inline-flex">Climatology</Badge>
+                <Badge variant="secondary" className="hidden sm:inline-flex text-xs">Climatology</Badge>
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-3 gap-3">
+            <CardContent className="space-y-3 sm:space-y-4">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {/* Month */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Month</label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-muted-foreground">Month</label>
                   <Select
                     value={selectedMonth}
                     onValueChange={(value) => {
@@ -491,7 +493,7 @@ export default function ExplorePage() {
                       }
                     }}
                   >
-                    <SelectTrigger className="h-11"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="h-9 sm:h-11 text-sm"><SelectValue /></SelectTrigger>
                     <SelectContent>
                       {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m, i) => (
                         <SelectItem key={m} value={(i+1).toString()}>{m}</SelectItem>
@@ -500,8 +502,8 @@ export default function ExplorePage() {
                   </Select>
                 </div>
                 {/* Day */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Day</label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-muted-foreground">Day</label>
                   <Select
                     value={selectedDay}
                     onValueChange={(value) => {
@@ -509,7 +511,7 @@ export default function ExplorePage() {
                       updateDateFromSelectors(selectedYear, selectedMonth, value)
                     }}
                   >
-                    <SelectTrigger className="h-11"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="h-9 sm:h-11 text-sm"><SelectValue /></SelectTrigger>
                     <SelectContent className="max-h-[300px]">
                       {Array.from({ length: getDaysInMonth(parseInt(selectedYear), parseInt(selectedMonth)) }, (_, i) => i + 1).map((d) => (
                         <SelectItem key={d} value={d.toString()}>{d}</SelectItem>
@@ -518,8 +520,8 @@ export default function ExplorePage() {
                   </Select>
                 </div>
                 {/* Year */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-muted-foreground">Year</label>
+                <div className="space-y-1.5 sm:space-y-2">
+                  <label className="text-xs sm:text-sm font-medium text-muted-foreground">Year</label>
                   <Select
                     value={selectedYear}
                     onValueChange={(value) => {
@@ -533,7 +535,7 @@ export default function ExplorePage() {
                       }
                     }}
                   >
-                    <SelectTrigger className="h-11"><SelectValue /></SelectTrigger>
+                    <SelectTrigger className="h-9 sm:h-11 text-sm"><SelectValue /></SelectTrigger>
                     <SelectContent className="max-h-[300px]">
                       {/* NEW: Allow years from 1980 to 2100 */}
                       {Array.from({ length: 2100 - 1980 + 1 }, (_, i) => 2100 - i).map((y) => (
@@ -547,13 +549,13 @@ export default function ExplorePage() {
               <Separator />
 
               {/* Selected Date */}
-              <div className="p-4 bg-muted rounded-lg text-center">
-                <div className="text-sm text-muted-foreground mb-1">Selected Date</div>
-                <div className="text-2xl font-bold">{format(date, "MMMM d, yyyy")}</div>
+              <div className="p-3 sm:p-4 bg-muted rounded-lg text-center">
+                <div className="text-xs sm:text-sm text-muted-foreground mb-1">Selected Date</div>
+                <div className="text-xl sm:text-2xl font-bold">{format(date, "MMMM d, yyyy")}</div>
               </div>
 
               {/* Date Info */}
-              <div className="grid grid-cols-2 gap-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
                 <InfoTile label="Day of Year" value={`${Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24))}`} />
                 <InfoTile label="Week" value={`${Math.ceil(Math.floor((date.getTime() - new Date(date.getFullYear(), 0, 0).getTime()) / (1000 * 60 * 60 * 24)) / 7)}`} />
               </div>
@@ -561,9 +563,9 @@ export default function ExplorePage() {
           </Card>
 
           {/* Analysis Section - Right Bottom */}
-          <Card className="col-span-4 row-span-6">
+          <Card className="lg:col-span-4 lg:row-span-6">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base">Run Analysis</CardTitle>
+              <CardTitle className="text-base sm:text-lg">Run Analysis</CardTitle>
               <CardDescription className="text-xs">Review and start climate analysis</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -575,10 +577,10 @@ export default function ExplorePage() {
 
               <Separator />
 
-              <Button onClick={handleAnalysis} disabled={analyzing} className="w-full h-12">
+              <Button onClick={handleAnalysis} disabled={analyzing} className="w-full h-11 sm:h-12 text-sm sm:text-base">
                 {analyzing ? (
                   <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" /> Analyzing Climate...
+                    <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" /> Analyzing Climate...
                   </>
                 ) : (
                   <>Analyze Climate</>
@@ -605,10 +607,10 @@ export default function ExplorePage() {
 
         {/* Error Alert - Floating */}
         {error && (
-          <div className="fixed bottom-6 left-1/2 -translate-x-1/2 w-96 z-[80]">
+          <div className="fixed bottom-4 sm:bottom-6 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 sm:w-96 z-[80]">
             <Alert variant="destructive">
               <AlertCircle className="h-4 w-4" />
-              <AlertDescription>{error}</AlertDescription>
+              <AlertDescription className="text-sm">{error}</AlertDescription>
             </Alert>
           </div>
         )}
@@ -628,9 +630,9 @@ function SummaryRow({ label, value }: { label: string; value: string }) {
 
 function InfoTile({ label, value }: { label: string; value: string }) {
   return (
-    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+    <div className="flex items-center justify-between p-2 sm:p-3 bg-muted/50 rounded-lg">
       <span className="text-xs text-muted-foreground">{label}</span>
-      <span className="text-lg font-bold">{value}</span>
+      <span className="text-base sm:text-lg font-bold">{value}</span>
     </div>
   )
 }

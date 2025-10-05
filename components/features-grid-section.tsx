@@ -24,16 +24,16 @@ export default function FeaturesGridSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="py-32 bg-background">
-      <div className="container mx-auto px-6">
-        <div className="mb-16 scroll-animate">
-          <div className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">NASA MERRA-2 + HYCOM</div>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">
+    <section ref={sectionRef} className="py-16 sm:py-24 md:py-32 bg-background">
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="mb-10 sm:mb-12 md:mb-16 scroll-animate">
+          <div className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3 sm:mb-4">NASA MERRA-2 + HYCOM</div>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight max-w-2xl">
             Real science. Real data.
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12">
           {/* Feature 1 */}
           <div className="scroll-animate" style={{ transitionDelay: "0ms" }}>
             <div className="mb-6 flex">
