@@ -12,7 +12,7 @@
 [![HYCOM](https://img.shields.io/badge/NOAA-HYCOM-blue)](https://www.hycom.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Live Demo](https://climalens.vercel.app) • [Documentation](docs/) • [Report Issue](https://github.com/Panacea2005/ClimaLens/issues)
+[Live Demo](https://climalens.vercel.app) • [GitHub](https://github.com/Panacea2005/ClimaLens) • [Documentation](docs/)
 
 </div>
 
@@ -148,7 +148,7 @@ cd ClimaLens
 npm install
 
 # Configure environment variables
-cp .env.example .env.local
+cp .env.local.example .env.local
 ```
 
 ### Environment Configuration
@@ -160,7 +160,7 @@ Create a `.env.local` file with the following variables:
 GOOGLE_APPLICATION_CREDENTIALS=.secrets/climalens-gee-key.json
 
 # Application URL (for share links)
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_APP_URL=https://climalens.vercel.app
 ```
 
 ### Development Server
@@ -326,6 +326,8 @@ ClimaLens was developed for the NASA Space Apps Challenge 2025 by a team passion
 
 ## Support
 
+- **Live Demo**: [https://climalens.vercel.app](https://climalens.vercel.app)
+- **GitHub Repository**: [https://github.com/Panacea2005/ClimaLens](https://github.com/Panacea2005/ClimaLens)
 - **Issues**: [GitHub Issues](https://github.com/Panacea2005/ClimaLens/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/Panacea2005/ClimaLens/discussions)
 - **Documentation**: [docs/](docs/)
@@ -338,6 +340,6 @@ ClimaLens was developed for the NASA Space Apps Challenge 2025 by a team passion
 
 Made with precision and care by the ClimaLens Team
 
-[Website](https://climalens.vercel.app) • [GitHub](https://github.com/Panacea2005/ClimaLens) • [Documentation](docs/)
+[Live Demo](https://climalens.vercel.app) • [GitHub Repository](https://github.com/Panacea2005/ClimaLens) • [Documentation](docs/)
 
 </div>
