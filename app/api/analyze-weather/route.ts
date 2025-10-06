@@ -16,7 +16,12 @@ import {
 
 // Check if credentials are configured
 function hasCredentials(): boolean {
-  return !!(process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.EE_PRIVATE_KEY)
+  return !!(
+    process.env.GOOGLE_SERVICE_ACCOUNT || 
+    process.env.EE_PRIVATE_KEY || 
+    (process.env.EE_CLIENT_EMAIL && process.env.EE_PRIVATE_KEY_CONTENT) ||
+    (process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.VERCEL)
+  )
 }
 
 // Initialize Earth Engine with service account
@@ -28,11 +33,41 @@ async function initializeEE(): Promise<boolean> {
     }
 
     try {
-      // Try to load the service account key
-      const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS
-      if (keyPath) {
+      let privateKey: any
+
+      // Option 1: Direct JSON string from environment variable (RECOMMENDED for Vercel)
+      if (process.env.GOOGLE_SERVICE_ACCOUNT) {
+        console.log('Using GOOGLE_SERVICE_ACCOUNT environment variable')
+        privateKey = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT)
+      }
+      // Option 2: Build from individual environment variables (alternative for Vercel)
+      else if (process.env.EE_PRIVATE_KEY_CONTENT && process.env.EE_CLIENT_EMAIL) {
+        console.log('Building credentials from individual environment variables')
+        privateKey = {
+          type: 'service_account',
+          project_id: process.env.EE_PROJECT_ID || 'climalens-474105',
+          private_key_id: process.env.EE_PRIVATE_KEY_ID,
+          private_key: process.env.EE_PRIVATE_KEY_CONTENT.replace(/\\n/g, '\n'),
+          client_email: process.env.EE_CLIENT_EMAIL,
+          client_id: process.env.EE_CLIENT_ID || '',
+          auth_uri: 'https://accounts.google.com/o/oauth2/auth',
+          token_uri: 'https://oauth2.googleapis.com/token',
+          auth_provider_x509_cert_url: 'https://www.googleapis.com/oauth2/v1/certs',
+          client_x509_cert_url: `https://www.googleapis.com/robot/v1/metadata/x509/${encodeURIComponent(process.env.EE_CLIENT_EMAIL || '')}`,
+          universe_domain: 'googleapis.com'
+        }
+      }
+      // Option 3: EE_PRIVATE_KEY (legacy support)
+      else if (process.env.EE_PRIVATE_KEY) {
+        console.log('Using EE_PRIVATE_KEY environment variable')
+        privateKey = JSON.parse(process.env.EE_PRIVATE_KEY)
+      }
+      // Option 4: File path (for local development only)
+      else if (process.env.GOOGLE_APPLICATION_CREDENTIALS && !process.env.VERCEL) {
+        console.log('Using GOOGLE_APPLICATION_CREDENTIALS file path')
         const fs = require('fs')
         const path = require('path')
+        const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS
         const fullPath = path.resolve(process.cwd(), keyPath)
         
         if (!fs.existsSync(fullPath)) {
@@ -40,33 +75,36 @@ async function initializeEE(): Promise<boolean> {
           return
         }
 
-        const privateKey = JSON.parse(fs.readFileSync(fullPath, 'utf8'))
-        
-        ee.data.authenticateViaPrivateKey(
-          privateKey,
-          () => {
-            ee.initialize(
-              null,
-              null,
-              () => {
-                console.log('Earth Engine initialized successfully for analysis')
-                resolve(true)
-              },
-              (error: Error) => {
-                console.error('EE Initialize error:', error)
-                reject(error)
-              }
-            )
-          },
-          (error: Error) => {
-            console.error('EE Auth error:', error)
-            reject(error)
-          }
-        )
+        privateKey = JSON.parse(fs.readFileSync(fullPath, 'utf8'))
       } else {
-        reject(new Error('GOOGLE_APPLICATION_CREDENTIALS not set'))
+        reject(new Error('No valid credentials found. Please configure GOOGLE_SERVICE_ACCOUNT or individual credential fields.'))
+        return
       }
+
+      // Authenticate with Earth Engine
+      ee.data.authenticateViaPrivateKey(
+        privateKey,
+        () => {
+          ee.initialize(
+            null,
+            null,
+            () => {
+              console.log('Earth Engine initialized successfully for analysis')
+              resolve(true)
+            },
+            (error: Error) => {
+              console.error('EE Initialize error:', error)
+              reject(error)
+            }
+          )
+        },
+        (error: Error) => {
+          console.error('EE Auth error:', error)
+          reject(error)
+        }
+      )
     } catch (error) {
+      console.error('Failed to parse credentials:', error)
       reject(error)
     }
   })
